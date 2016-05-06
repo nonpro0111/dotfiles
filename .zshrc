@@ -45,10 +45,6 @@ if [ -f ~/.zsh/auto-fu.zsh ]; then
 fi
 
 
-### Add environment variable COCOS_CONSOLE_ROOT for cocos2d-x
-export COCOS_CONSOLE_ROOT=/Users/nomura_yoshihiro/cocos2d-x-3.0/tools/cocos2d-console/bin
-export PATH=$COCOS_CONSOLE_ROOT:$PATH
-
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
@@ -76,4 +72,4 @@ bindkey '^r' peco-select-history
 ### alias
 alias g='git'
 alias be='bundle exec'
-export NODE_PATH=/Users/nomura_yoshihiro/.nodebrew/current/lib/node_modules/:/usr/local/lib/node_modules
+export NODE_PATH=~/.nodebrew/current/lib/node_modules/:/usr/local/lib/node_modules
