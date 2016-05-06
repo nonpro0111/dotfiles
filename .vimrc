@@ -1,7 +1,6 @@
-"カラースキーマを設定
-colorscheme molokai
 syntax on
-let g:molokai_original = 1
+colorscheme molokai
+set t_Co=256
 let g:rehash256 = 1
 set background=dark
 
@@ -57,20 +56,22 @@ set mouse=a                       " マウスの入力を受け付ける
 hi ZenkakuSpace gui=underline guibg=DarkBlue cterm=underline ctermfg=LightBlue " 全角スペースの定義
 match ZenkakuSpace /　/
 
-filetype off
-
-if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim
-  call neobundle#begin(expand('~/.vim/bundle/'))
+"filetype off
+if 0 | endif
+if &compatible
+   set nocompatible               " Be iMproved
 endif
+set runtimepath^=~/.vim/bundle/neobundle.vim/
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+NeoBundleFetch 'Shougo/neobundle.vim'
+
 NeoBundle 'jonathanfilip/vim-lucius'
 NeoBundle 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimproc.vim'
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'scrooloose/syntastic.git'
-NeoBundle 'slim-template/vim-slim'
 NeoBundle 'Townk/vim-autoclose'
 " emmet <c-y>, で実行
 NeoBundle 'mattn/emmet-vim'
@@ -78,9 +79,16 @@ NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'plasticscafe/vim-less-autocompile' " less -> css用
 NeoBundle 'jiangmiao/simple-javascript-indenter'
-filetype plugin indent on
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'slim-template/vim-slim'
 
 call neobundle#end()
+
+"if has('vim_starting')
+"  set runtimepath+=~/.vim/bundle/neobundle.vim
+"  call neobundle#begin(expand('~/.vim/bundle/'))
+"endif
+filetype plugin indent on
 
 " 毎回聞かれると邪魔な場合もあるので、この設定は任意です。
 NeoBundleCheck
@@ -105,6 +113,7 @@ function! SetUpRailsSetting()
   nnoremap <buffer><Space>m :Rmodel<Space>
   nnoremap <buffer><Space>c :Rcontroller<Space>
   nnoremap <buffer><Space>v :Rview<Space>
+  nnoremap <buffer><Space>h :Rhelper<Space>
 endfunction
 
 aug MyAutoCmd
@@ -116,46 +125,6 @@ aug RailsDictSetting
 aug END
 
 let mapleader = " "
-"----------------------------
-"  unite.vim
-"----------------------------
-nnoremap    [unite]   <Nop>
-nmap    <Leader>f [unite]
-
-" unite.vim keymap
-" https://github.com/alwei/dotfiles/blob/3760650625663f3b08f24bc75762ec843ca7e112/.vimrc
-nnoremap [unite]u  :<C-u>Unite -no-split<Space>
-nnoremap <silent> [unite]f :<C-u>Unite<Space>file<Space>buffer<CR>
-nnoremap <silent> [unite]b :<C-u>Unite<Space>buffer<CR>
-nnoremap <silent> [unite]m :<C-u>Unite<Space>file_mru<CR>
-nnoremap <silent> [unite]r :<C-u>UniteWithBufferDir file<CR>
-nnoremap <silent> ,vr :UniteResume<CR>
-
-" vinarise
-let g:vinarise_enable_auto_detect = 1
-
-" insert modeで開始
-let g:unite_enable_start_insert = 1
-
-" 大文字小文字を区別しない
-let g:unite_enable_ignore_case = 1
-let g:unite_enable_smart_case = 1
-
-" grep検索
-nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-
-" カーソル位置の単語をgrep検索
-nnoremap <silent> ,cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
-
-" grep検索結果の再呼出
-nnoremap <silent> ,r  :<C-u>UniteResume search-buffer<CR>
-
-" unite grep に ag(The Silver Searcher) を使う
-if executable('ag')
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-  let g:unite_source_grep_recursive_opt = ''
-endif
 
 "-----------------------
 " less
